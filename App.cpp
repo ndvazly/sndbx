@@ -7,7 +7,7 @@ App::App(int Width, int Height): m_width(Width), m_height(Height)
 	window = new sf::RenderWindow(sf::VideoMode(m_width, m_height), "sndbx");
 	currentline = nullptr;
 	line_width = 5;
-	gravity = { 0.f, 0.05f };
+	gravity = { 0.f, 0.1f };
 	AddBoundingRect();
 }
 
@@ -81,7 +81,7 @@ void App::Update(float dt)
 	//std::cout << "dt:" << dt << "\n";
 	for (auto& b : balls) {
 		bool collision=false;
-		//b.ApplyForce(gravity);
+		b.ApplyGravity(gravity);
 		//collision = false;
 		for (auto& o : obstacles) {
 			sf::Vector2f p(b.getPos());
@@ -96,8 +96,8 @@ void App::Update(float dt)
 			}			
 		}
 
-		if (!collision)
-			b.ApplyForce(gravity);
+		//if (!collision)
+		//	b.ApplyGravity(gravity);
 
 		b.Update(dt);
 	}
